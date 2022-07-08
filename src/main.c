@@ -11,7 +11,7 @@ int	main(int argc, char *argv[])
 	bzero(&p, sizeof(p));/* memesetに */
 	if (set_args(&i, argc, argv))
 		return (1);
-	i.control = 1;
+	i.control = PREEXE;
 	p.info = &i;
 	p.no = i.n;
 	pthread_mutex_init(&(p.lf), NULL);
@@ -58,24 +58,102 @@ void mkphilo_and_exe(t_philo *right)
 	memcpy(&p, right, sizeof(p));/*  */
 	p.no--;
 	p.next = right;
-	pthread_mutex_init(&(p.lf), NULL);
+	pthread_mutex_init(&(p.lf.m), NULL);
 	pthread_create(&t, NULL, philo, &p);
 	mkphilo_and_exe(&p);
+	pthread_mutex_destroy(&(p.lf.m));
 	return ;
 }
 
 void	*philo(void *vp)
 {
-	t_philo	*p;
+	t_philo			*p;
+	struct timeval	dt;
 
 	p = vp;
-	while (p->info->control)
+	while (p->info->control == PREEXE)
 		usleep(1);
-	while ()
+	get_dt(p->info, &dt);
+	while (p->info->control == EXEING)
 	{
-		/* code */
+//thinking
+		
+//eating
+
+//sleeping
 	}
-	
+	return ((void *)ALIVE);
+}
 
+int	thinking(t_philo *p, struct timeval *dt)
+{
+	struct timeval	now;
+	struct timezone	buff;
+	int				f;
 
+	gettimeofday(&now, &buff);
+	printf("thinking\n");
+	f = NEXIST;
+	while(p->info->control == EXEING && f == NEXIST)
+	{
+		gettimeofday(&now, &buff);
+		if ((dt->tv_sec < now.tv_sec) || \
+		(dt->tv_sec == now.tv_sec && dt->tv_usec < now.tv_usec))
+			return (DEAD);
+		f = rubfork(p);
+	}
+	return (ALIVE);
+}
+
+void	get_dt(t_info *i, struct timeval *dt)
+{
+	struct timezone	buff;
+
+	gettimeofday(dt, &buff);
+	dt->tv_usec += (i->d * 1000);
+	dt->tv_sec += dt->tv_usec / 1000000;
+	dt->tv_usec = dt->tv_usec % 1000000;
+	return ;
+}
+int eating_sleeping (t_philo *p, struct timeval *dt)
+{
+	struct timeval	now;
+	struct timezone	buff;
+
+	gettimeofday(&now, &buff);
+	printf("thinking\n");
+	if ()
+	memcpy(&now, dt, sizeof(struct timeval));
+	dt->tv_usec += (p->info->d * 1000);
+	dt->tv_sec += dt->tv_usec / 1000000;
+	dt->tv_usec = dt->tv_usec % 1000000;
+}
+int	rubfork(t_philo *p)
+{
+	if (p->lf.s == EXIST && p->next->lf.s == EXIST)
+	{
+		pthread_mutex_lock(&(p->lf.m));
+		if (p->lf.s == EXIST)
+		{
+			p->lf.s == NEXIST;
+			pthread_mutex_unlock(&(p->lf.m));
+			pthread_mutex_lock(&(p->next->lf.m));
+			if (p->next->lf.s == EXIST)
+			{
+				p->next->lf.s == NEXIST;
+				pthread_mutex_unlock(&(p->next->lf.m));
+				return (EXIST);
+			}
+			else
+			{
+				pthread_mutex_unlock(&(p->next->lf.m));
+				pthread_mutex_lock(&(p->lf.m));
+				p->lf.s == EXIST;
+				pthread_mutex_unlock(&(p->lf.m));
+			}
+		}
+		else
+			pthread_mutex_unlock(&(p->lf.m));
+	}
+	return (NEXIST);
 }

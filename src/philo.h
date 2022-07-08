@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <pthread.h>
+#include <sys/time.h>
 
 typedef struct s_info
 {
@@ -11,17 +12,36 @@ typedef struct s_info
 	unsigned int		e;		//time_to_eat
 	unsigned int		s;		//time_to_sleep
 	unsigned int		me;		//number of times each philosopher must eat
-	int					control;//control　thread flag
+	int					control;//control thread flag
 }	t_info;
+
+typedef struct s_fork
+{
+	pthread_mutex_t	m;	//fork's mutex
+	int				s;	//status
+}	t_fork;
 
 typedef struct s_philo
 {
-	unsigned int	no;			//philo nomber
-	pthread_mutex_t	lf;			//philo's fork at left
-	unsigned int	eat;		//times eatred
-	struct s_philo	*next;		//philo next to
-	struct s_info	*info;		//prerequisite information
+	unsigned int	no;		//philo nomber
+	t_fork			lf;		//philo's fork at left
+	unsigned int	eat;	//times eated
+	struct s_philo	*next;	//philo next to
+	struct s_info	*info;	//prerequisite information
 }	t_philo;
+
+//flag about control thread
+#define PREEXE 0
+#define EXEING 1
+#define ENDEXE 2
+
+//flag about is fork exist
+#define NEXIST 0
+#define EXIST 1
+
+//flag about is philo alive
+#define ALIVE 0
+#define DEAD 1
 
 int	set_args(t_info *i, int argc, char *argv[]);
 int	set_uint(char	*s, unsigned int *u);
