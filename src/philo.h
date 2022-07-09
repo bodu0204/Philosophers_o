@@ -26,9 +26,12 @@ typedef struct s_philo
 	unsigned int	no;		//philo nomber
 	t_fork			lf;		//philo's fork at left
 	unsigned int	eat;	//times eated
+	int				status;	//is philo alive
 	struct s_philo	*next;	//philo next to
 	struct s_info	*info;	//prerequisite information
 }	t_philo;
+
+#define TWEAK 2
 
 //flag about control thread
 #define PREEXE 0
@@ -47,4 +50,14 @@ int	set_args(t_info *i, int argc, char *argv[]);
 int	set_uint(char	*s, unsigned int *u);
 
 void	*philo(void *vp);
+
+void	exe(t_philo *p);
+int	rubfork(t_philo *p);
+int eating_sleeping (t_philo *p, struct timeval *dt);
+void	get_dt(t_info *i, struct timeval *dt);
+int	thinking(t_philo *p, struct timeval *dt);
+void mkphilo_and_exe(t_philo *right);
+int set_args(t_info *i, int argc, char *argv[]);
+void	putfork(t_philo *p);
+
 #endif

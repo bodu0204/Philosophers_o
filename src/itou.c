@@ -1,4 +1,5 @@
 #include"philo.h"
+int is_numstr(char	*s);
 
 int	set_uint(char	*s, unsigned int *u)
 {
@@ -28,7 +29,7 @@ int is_numstr(char	*s)
 	if (i > 10)
 		return (0);
 	if (i == 10)
-		return (ft_memcmp(s, "4294967295", 10) <= 0);
+		return (memcmp(s, "4294967295", 10) <= 0);/*  */
 	return (1);
 }
 

@@ -4,9 +4,9 @@ ACHIEV			= philo
 ACHIEVb			= $(ACHIEV)_bonus
 SRC_d			= src/
 SRCb_d			= src_bonus/
-SRC				= 
+SRC				= itou.c  main.c
 SRCb			= 
-HEDER			= 
+HEDER			= philo.h
 HEDERb			= 
 SRC_o			= $(SRC:%.c=%.o)
 SRCb_o			= $(SRCb:%.c=%.o)
