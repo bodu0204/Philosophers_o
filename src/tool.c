@@ -1,5 +1,5 @@
 #include"philo.h"
-int is_numstr(char	*s);
+int		is_numstr(char	*s);
 
 int	set_uint(char	*s, unsigned int *u)
 {
@@ -15,9 +15,9 @@ int	set_uint(char	*s, unsigned int *u)
 	return (0);
 }
 
-int is_numstr(char	*s)
+int	is_numstr(char	*s)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (s[i])
@@ -29,7 +29,7 @@ int is_numstr(char	*s)
 	if (i > 10)
 		return (0);
 	if (i == 10)
-		return (memcmp(s, "4294967295", 10) <= 0);/*  */
+		return (ft_memcmp(s, "4294967295", 10) <= 0);
 	return (1);
 }
 
@@ -43,4 +43,19 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	if (i == n)
 		return (0);
 	return (*((unsigned char *)s1 + i) - *((unsigned char *)s2 + i));
+}
+
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	size_t	i;
+
+	if (!dst && !src)
+		return (0);
+	i = 0;
+	while (i < n)
+	{
+		*(char *)(dst + i) = *(char *)(src + i);
+		i++;
+	}
+	return (dst);
 }
