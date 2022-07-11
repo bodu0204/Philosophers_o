@@ -4,6 +4,7 @@
 # include <string.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <stdio.h>
 
 # define TWEAK 0
 //flag about control thread
@@ -65,6 +66,7 @@ typedef struct s_schedule
 void	mkphilo_and_exe(t_philo *right);
 void	exe(t_philo *p);
 void	end_exe(t_philo *p);
+void	died_philo(t_philo *p);
 //philo.c
 void	*philo(void *vp);
 int		thinking(t_philo *p, t_schedule	*s);

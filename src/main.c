@@ -85,14 +85,14 @@ void	exe(t_philo *p)
 		if (p->status == DEAD)
 		{
 			d++;
-			dead_philo(p);
+			died_philo(p);
 		}
 		p = p->next;
 	}
 	return ;
 }
 
-void	dead_philo(t_philo *p)
+void	died_philo(t_philo *p)
 {
 	unsigned int	n;
 
