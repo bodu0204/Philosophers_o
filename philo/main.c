@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 16:58:02 by blyu              #+#    #+#             */
-/*   Updated: 2022/07/11 17:00:39 by blyu             ###   ########.fr       */
+/*   Updated: 2022/07/11 17:17:07 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	set_args(t_info *i, int argc, char *argv[])
 		err += set_uint(argv[5], &(i->me));
 	else
 		i->me = 0;
-	if (err || i->n > 2048)
+	if (err || i->n >= 2048)
 	{
 		printf("arg error\n");
 		return (1);
