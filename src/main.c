@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/11 15:21:57 by blyu              #+#    #+#             */
+/*   Updated: 2022/07/11 15:21:58 by blyu             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include"philo.h"
 
 int	main(int argc, char *argv[])
@@ -16,8 +28,11 @@ int	main(int argc, char *argv[])
 	pthread_mutex_init(&(p.lf.m), NULL);
 	if (set_args(&i, argc, argv))
 		return (1);
-	pthread_create(&t, NULL, philo, &p);
-	mkphilo_and_exe(&p);
+	if (pthread_create(&t, NULL, philo, &p))
+		i.control = ENDEXE;
+	else
+		mkphilo_and_exe(&p);
+	pthread_mutex_destroy(&(p.lf.m));
 	return (0);
 }
 
@@ -67,8 +82,10 @@ void	mkphilo_and_exe(t_philo *right)
 	p.no--;
 	p.next = right;
 	pthread_mutex_init(&(p.lf.m), NULL);
-	pthread_create(&t, NULL, philo, &p);
-	mkphilo_and_exe(&p);
+	if (pthread_create(&t, NULL, philo, &p))
+		p.info->control = ENDEXE;
+	else
+		mkphilo_and_exe(&p);
 	pthread_mutex_destroy(&(p.lf.m));
 	return ;
 }
