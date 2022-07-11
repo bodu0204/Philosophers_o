@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/11 15:21:57 by blyu              #+#    #+#             */
-/*   Updated: 2022/07/11 15:21:58 by blyu             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include"philo.h"
 
@@ -27,7 +16,7 @@ int	main(int argc, char *argv[])
 	p.lf.s = EXIST;
 	pthread_mutex_init(&(p.lf.m), NULL);
 	if (set_args(&i, argc, argv))
-		return (1);
+		return (0);
 	if (pthread_create(&t, NULL, philo, &p))
 		i.control = ENDEXE;
 	else
@@ -41,7 +30,7 @@ int	set_args(t_info *i, int argc, char *argv[])
 	int	err;
 
 	err = 0;
-	if (argc < 4 || argc > 6)
+	if (argc < 5 || argc > 6)
 	{
 		printf("arg error\n");
 		return (1);
@@ -59,6 +48,8 @@ int	set_args(t_info *i, int argc, char *argv[])
 		printf("arg error\n");
 		return (1);
 	}
+	if (!(i->n))
+		return (1);
 	return (0);
 }
 

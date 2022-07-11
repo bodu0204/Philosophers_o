@@ -1,8 +1,10 @@
 PROJECT_NAME	= Philosophers
 ACHIEV			= philo
+ACHIEVtest		= $(ACHIEV).test
 ACHIEVb			= $(ACHIEV)_bonus
-SRC_PASS		= src
-SRCb_PASS		= src_bonus
+ACHIEVtest		= $(ACHIEV).test
+SRC_PASS		= philo
+SRCb_PASS		= philo_bonus
 OTHER_PASS		= other
 SUBMIT_d		= $(PROJECT_NAME)/
 TEST_d			= test_case_0/
@@ -10,8 +12,8 @@ TEST_d			= test_case_0/
 all : $(ACHIEV)
 
 $(ACHIEV) : file
-	cd "$(SUBMIT_d)" && make all
-	cp -f $(SUBMIT_d)$(ACHIEV) ./$(ACHIEV)
+	cd "$(SUBMIT_d)$(ACHIEV)" && make all
+	cp -f $(SUBMIT_d)$(ACHIEV)/$(ACHIEV) ./$(ACHIEVtest)
 
 bonus : $(ACHIEVb)
 
@@ -33,7 +35,6 @@ file : fclean
 	mkdir $(SUBMIT_d)
 	cp -rf $(SRC_PASS) $(SUBMIT_d)
 	cp -rf $(SRCb_PASS) $(SUBMIT_d)
-	cp -f $(OTHER_PASS)/* $(SUBMIT_d)
 
 test : all bonus
 	mkdir $(TEST_d)
@@ -43,8 +44,8 @@ test : all bonus
 fclean :
 	rm -rf $(SUBMIT_d)
 	rm -rf $(TEST_d)
-	rm -f $(ACHIEV)
-	rm -f $(ACHIEVb)
+	rm -f $(ACHIEVtest)
+	rm -f $(ACHIEVbtest)
 
 outclean :
 	rm -rf ../$(SUBMIT_d)
