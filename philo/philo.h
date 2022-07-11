@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:22:15 by blyu              #+#    #+#             */
-/*   Updated: 2022/07/11 15:22:16 by blyu             ###   ########.fr       */
+/*   Updated: 2022/07/11 16:55:50 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define S_MS 1000
 # define MS_US 1000
 //log format
-# define LOGFMT "%u_in_ms %u %s\n"
+# define LOGFMT "%06u_in_ms %u %s\n"
 
 typedef struct s_info
 {
