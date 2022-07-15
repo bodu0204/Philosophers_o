@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ryoakira <ryoakira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:22:08 by blyu              #+#    #+#             */
-/*   Updated: 2022/07/11 16:39:19 by blyu             ###   ########.fr       */
+/*   Updated: 2022/07/15 11:28:22 by ryoakira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int	thinking(t_philo *p, t_schedule	*s)
 	get_schedule(p->info, s);
 	while (old_dt > s->et && f == NEXIST)
 	{
-		f = rubfork(p);
+		if (p->info->n > 1)
+			f = rubfork(p);
 		get_schedule(p->info, s);
 	}
 	if (old_dt > s->et)
