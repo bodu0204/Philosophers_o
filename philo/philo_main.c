@@ -6,7 +6,7 @@
 /*   By: ryoakira <ryoakira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:21:24 by ryoakira          #+#    #+#             */
-/*   Updated: 2022/07/15 15:42:26 by ryoakira         ###   ########.fr       */
+/*   Updated: 2022/07/15 16:08:49 by ryoakira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int	eating(t_philo *p)
 		usleep((p->info->e * S_MS) - TWEAK);
 	else
 	{
-
 		usleep((p->info->d * S_MS) - TWEAK);
 		p->status = DEAD;
 		philolog(p, DIE);
