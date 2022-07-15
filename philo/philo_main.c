@@ -6,7 +6,7 @@
 /*   By: ryoakira <ryoakira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:21:24 by ryoakira          #+#    #+#             */
-/*   Updated: 2022/07/15 13:21:25 by ryoakira         ###   ########.fr       */
+/*   Updated: 2022/07/15 15:42:26 by ryoakira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	get_schedule(t_info *i, t_schedule	*s)
 	struct timeval	now;
 
 	gettimeofday(&now, &buff);
-	s->et = (now.tv_usec % S_US) + (now.tv_sec * S_US);
+	s->et = (now.tv_usec / MS_US) + (now.tv_sec * S_MS);
 	s->dt = s->et + i->d;
 	return ;
 }
@@ -61,10 +61,11 @@ int	thinking(t_philo *p, t_schedule	*s)
 	get_schedule(p->info, s);
 	while (old_dt > s->et && f == NEXIST)
 	{
-		f = rubfork(p);
+		if (p->lf.s == EXIST && p->next->lf.s == EXIST)
+			f = rubfork(p);
 		get_schedule(p->info, s);
 	}
-	if (old_dt <= s->et)
+	if (f == NEXIST)
 	{
 		p->status = DEAD;
 		philolog(p, DIE);
@@ -76,12 +77,16 @@ int	thinking(t_philo *p, t_schedule	*s)
 int	eating(t_philo *p)
 {
 	if (p->info->control != EXEING)
+	{
+		p->status = DEAD;
 		return (DEAD);
+	}
 	p->eat++;
 	if (p->info->d > p->info->e)
 		usleep((p->info->e * S_MS) - TWEAK);
 	else
 	{
+
 		usleep((p->info->d * S_MS) - TWEAK);
 		p->status = DEAD;
 		philolog(p, DIE);
@@ -98,7 +103,10 @@ int	eating(t_philo *p)
 int	sleeping(t_philo *p)
 {
 	if (p->info->control != EXEING)
+	{
+		p->status = DEAD;
 		return (DEAD);
+	}
 	if (p->info->d > p->info->e + p->info->s)
 	{
 		usleep((p->info->s * S_MS) - TWEAK);

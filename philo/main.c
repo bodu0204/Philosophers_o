@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ryoakira <ryoakira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 16:58:02 by blyu              #+#    #+#             */
-/*   Updated: 2022/07/11 17:17:07 by blyu             ###   ########.fr       */
+/*   Updated: 2022/07/15 15:55:37 by ryoakira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	set_args(t_info *i, int argc, char *argv[])
 	if (argc > 5)
 		err += set_uint(argv[5], &(i->me));
 	else
-		i->me = 0;
+		i->me = __UINT32_MAX__;
 	if (err || i->n >= 2048)
 	{
 		printf("arg error\n");
@@ -120,7 +120,7 @@ void	died_philo(t_philo *p)
 	if (p->eat < p->info->me && p->info->control != ENDEXE)
 	{
 		p->info->control = ENDEXE;
-		usleep((p->info->d) * 2);
+		usleep((p->info->d) * 1024);
 		printf("philo%u just had eat %u times\n", p->no, p->eat);
 	}
 	else
@@ -131,7 +131,7 @@ void	died_philo(t_philo *p)
 			if (p->eat < p->info->me)
 			{
 				p->info->control = ENDEXE;
-				usleep((p->info->d) * 2);
+				usleep((p->info->d) * 1024);
 				printf("philo%u just had eat %u times\n", p->no, p->eat);
 			}
 			p = p->next;

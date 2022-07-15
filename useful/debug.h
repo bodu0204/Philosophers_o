@@ -6,6 +6,7 @@
 #define TEST printf("[(%s/%d) %s ]\n", __FILE__, __LINE__, __func__); fflush(stdin);
 #define TEST_ printf("---------------------------------------------[(%s/%d) %s ]\n", __FILE__, __LINE__, __func__); fflush(stdin);
 #define TESTn(i) printf("[(%s/%d) %s ]%s:%d\n", __FILE__, __LINE__, __func__, #i, (int)(i)); fflush(stdin);
+#define TESTlu(i) printf("[(%s/%d) %s ]%s:%lu\n", __FILE__, __LINE__, __func__, #i, (unsigned long)(i)); fflush(stdin);
 #define TESTd(i) printf("[(%s/%d) %s ]%s:%lf\n", __FILE__, __LINE__, __func__, #i, (double)(i)); fflush(stdin);
 #define TESTp(i) printf("[(%s/%d) %s ]%s:%p\n", __FILE__, __LINE__, __func__, #i, (i)); fflush(stdin);
 #define STOP {char c; read(STDIN_FILENO, &c, sizeof(char));}
