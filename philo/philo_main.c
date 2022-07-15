@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ryoakira <ryoakira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/11 15:22:08 by blyu              #+#    #+#             */
-/*   Updated: 2022/07/15 11:28:22 by ryoakira         ###   ########.fr       */
+/*   Created: 2022/07/15 13:21:24 by ryoakira          #+#    #+#             */
+/*   Updated: 2022/07/15 13:21:25 by ryoakira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	get_schedule(t_info *i, t_schedule	*s)
 	struct timeval	now;
 
 	gettimeofday(&now, &buff);
-	s->et = (now.tv_usec % S_US) + ((now.tv_sec % S_US) * S_US);
-	s->dt = s->et + (i->d * S_US);
+	s->et = (now.tv_usec % S_US) + (now.tv_sec * S_US);
+	s->dt = s->et + i->d;
 	return ;
 }
 
@@ -56,16 +56,15 @@ int	thinking(t_philo *p, t_schedule	*s)
 
 	if (p->info->control != EXEING)
 		return (DEAD);
-	old_dt = s->et;
+	old_dt = s->dt;
 	f = NEXIST;
 	get_schedule(p->info, s);
 	while (old_dt > s->et && f == NEXIST)
 	{
-		if (p->info->n > 1)
-			f = rubfork(p);
+		f = rubfork(p);
 		get_schedule(p->info, s);
 	}
-	if (old_dt > s->et)
+	if (old_dt <= s->et)
 	{
 		p->status = DEAD;
 		philolog(p, DIE);
