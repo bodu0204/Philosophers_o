@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:22:15 by blyu              #+#    #+#             */
-/*   Updated: 2022/07/11 16:55:50 by blyu             ###   ########.fr       */
+/*   Updated: 2022/07/16 16:38:54 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,27 +72,30 @@ typedef struct s_philo
 typedef struct s_schedule
 {
 	unsigned long int	et;
+	unsigned long int	st;
+	unsigned long int	tt;
 	unsigned long int	dt;
 }	t_schedule;
 //main.c
-void	mkphilo_and_exe(t_philo *right);
-void	exe(t_philo *p);
-void	end_exe(t_philo *p);
-void	died_philo(t_philo *p);
+void				mkphilo_and_exe(t_philo *right);
+void				exe(t_philo *p);
+void				end_exe(t_philo *p);
+void				died_philo(t_philo *p);
 //philo.c
-void	*philo(void *vp);
-int		thinking(t_philo *p, t_schedule	*s);
-int		eating(t_philo *p);
-int		sleeping(t_philo *p);
+void				*philo(void *vp);
+int					thinking(t_philo *p, t_schedule	*s);
+int					eating(t_philo *p, t_schedule	*s);
+int					sleeping(t_philo *p, t_schedule	*s);
+unsigned long int	now(void);
 //philo_util.c
-int		rubfork(t_philo *p);
-void	get_schedule(t_info *i, t_schedule	*s);
-void	philolog(t_philo *p, int d);
+int					rubfork(t_philo *p);
+void				get_schedule(t_info *i, t_schedule	*s);
+void				philolog(t_philo *p, int d);
 //tool.c
-void	*ft_memcpy(void *dst, const void *src, size_t n);
-int		set_args(t_info *i, int argc, char *argv[]);
-int		ft_memcmp(const void *s1, const void *s2, size_t n);
-int		set_uint(char	*s, unsigned int *u);
+void				*ft_memcpy(void *dst, const void *src, size_t n);
+int					set_args(t_info *i, int argc, char *argv[]);
+int					ft_memcmp(const void *s1, const void *s2, size_t n);
+int					set_uint(char	*s, unsigned int *u);
 #endif
 
 /* 

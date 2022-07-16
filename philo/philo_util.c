@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryoakira <ryoakira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:22:03 by blyu              #+#    #+#             */
-/*   Updated: 2022/07/15 15:34:15 by ryoakira         ###   ########.fr       */
+/*   Updated: 2022/07/16 16:39:18 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 void	philolog(t_philo *p, int d)
 {
-	struct timezone	buff;
-	struct timeval	now;
 	unsigned int	t;
 
-	gettimeofday(&now, &buff);
-	t = (now.tv_sec % MS_US) * MS_US + now.tv_usec / MS_US;
+	if (p->info->control != EXEING)
+		return ;
+	t = now();
 	if (d == THINK0)
 		printf(LOGFMT, t, p->no, "is thinking[start]");
 	else if (d == THINK)
@@ -64,4 +63,22 @@ int	rubfork(t_philo *p)
 	else
 		pthread_mutex_unlock(&(p->lf.m));
 	return (NEXIST);
+}
+
+void	get_schedule(t_info *i, t_schedule	*s)
+{
+	s->et = now();
+	s->dt = s->et + i->d;
+	s->st = s->et + i->e;
+	s->tt = s->st + i->s;
+	return ;
+}
+
+unsigned long int	now(void)
+{
+	struct timezone	buff;
+	struct timeval	now;
+
+	gettimeofday(&now, &buff);
+	return ((now.tv_usec / MS_US) + (now.tv_sec * S_MS));
 }
