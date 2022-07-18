@@ -11,10 +11,10 @@ int	main(int argc, char *argv[])
 	if (set_args(&i, argc, argv))
 		return (0);
 	q.pn = i.n;
-	q.s = sem_open(QUOTA, O_CREAT, S_IRWXU | S_IRWXG, 0);
+	q.s = sem_open(QUOTAsem, O_CREAT, S_IRWXU | S_IRWXG, 0);
 	if (q.s == SEM_FAILED)
 		return(1);
-	s = sem_open(FORK, O_CREAT, S_IRWXU | S_IRWXG, (int)i.n / 2);
+	s = sem_open(FORKsem, O_CREAT, S_IRWXU | S_IRWXG, (int)i.n / 2);
 	if (s == SEM_FAILED)
 		return(1);
 	quota = NOTYET;
@@ -65,7 +65,7 @@ void	*main_quota(void *vp)
 		sem_wait(q->s);
 		x++;
 	}
-	q->f = FINISH;
+	*(q->f) = FINISH;
 	return (NULL);
 }
 

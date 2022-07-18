@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:22:15 by blyu              #+#    #+#             */
-/*   Updated: 2022/07/18 21:07:44 by blyu             ###   ########.fr       */
+/*   Updated: 2022/07/18 21:23:53 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@
 # include <stdio.h>
 # include <semaphore.h>
 # include <signal.h>
+# include <sys/wait.h>
+# include <stdlib.h>
 
-# define QUOTA "QUOTA_sem"
-# define FORK "FORK_sem"
+# define QUOTAsem "QUOTA_sem"
+# define FORKsem "FORK_sem"
 
 # define NOTYET 0
 # define FINISH 1
@@ -92,6 +94,7 @@ void				*main_quota(void *vp);
 void				mkphilo_and_exe(t_info *i, int *quota);
 void				exe(t_info *i, int *quota);
 //philo_main.c
+void				philo(t_info *i);
 void				*philo_hand(void *vp);
 void				philo_main(t_info *i, t_acsess *acs, t_sems *se);
 void				thinking(t_info *i, t_schedule	*sc, t_acsess *acs, t_sems *se);

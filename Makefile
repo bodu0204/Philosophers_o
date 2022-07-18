@@ -18,8 +18,8 @@ $(ACHIEV) : file
 bonus : $(ACHIEVb)
 
 $(ACHIEVb) : file
-	cd "$(SUBMIT_d)" && make bonus
-	cp -f $(SUBMIT_d)$(ACHIEVb) ./
+	cd "$(SUBMIT_d)$(ACHIEVb)" && make all
+	cp -f $(SUBMIT_d)$(ACHIEVb)/$(ACHIEVb) ./
 
 push : fclean
 	git add .

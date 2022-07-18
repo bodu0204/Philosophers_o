@@ -8,8 +8,8 @@ void	philo(t_info *i)
 	sem_t	*qu;
 	t_hand	h;
 	
-	fk = sem_open(FORK, O_EXCL);
-	qu = sem_open(QUOTA, O_EXCL);
+	fk = sem_open(FORKsem, O_EXCL);
+	qu = sem_open(QUOTAsem, O_EXCL);
 	if (fk == SEM_FAILED || qu == SEM_FAILED)
 	{
 		printf("sem_open error");
@@ -108,7 +108,7 @@ void	eating(t_info *i, t_schedule	*sc, unsigned int *eat, t_sems *se)
 {
 	unsigned long	n;
 
-	*eat++;
+	(*eat)++;
 	if (i->e == *eat)
 		sem_post(se->q);
 	n = now();

@@ -1,6 +1,6 @@
 PROJECT_NAME	= Philosophers
-NAME			= philo
-ACHIEV			= philo
+NAME			= philo_bonus
+ACHIEV			= philo_bonus
 SRC_d			= ./
 SRC				= main.c philo_main.c philo_util.c tool.c
 HEDER			= philo.h
