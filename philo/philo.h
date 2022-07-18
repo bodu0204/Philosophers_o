@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:22:15 by blyu              #+#    #+#             */
-/*   Updated: 2022/07/16 16:38:54 by blyu             ###   ########.fr       */
+/*   Updated: 2022/07/17 14:03:23 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <sys/time.h>
 # include <stdio.h>
 
-# define TWEAK 0
 //flag about control thread
 # define PREEXE 0
 # define EXEING 1

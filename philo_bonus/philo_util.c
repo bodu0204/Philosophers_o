@@ -6,63 +6,34 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:22:03 by blyu              #+#    #+#             */
-/*   Updated: 2022/07/16 16:39:18 by blyu             ###   ########.fr       */
+/*   Updated: 2022/07/18 20:51:12 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"philo.h"
 
-void	philolog(t_philo *p, int d)
+void	philolog(t_info *i, int d)
 {
 	unsigned int	t;
 
-	if (p->info->control != EXEING)
-		return ;
 	t = now();
 	if (d == THINK0)
-		printf(LOGFMT, t, p->no, "is thinking[start]");
+		printf(LOGFMT, t, i->n, "is thinking[start]");
 	else if (d == THINK)
-		printf(LOGFMT, t, p->no, "is thinking");
+		printf(LOGFMT, t, i->n, "is thinking");
 	else if (d == EAT)
 	{
-		philolog(p, FORK);
-		philolog(p, FORK);
-		printf(LOGFMT, t, p->no, "is eating");
+		philolog(i, FORK);
+		philolog(i, FORK);
+		printf(LOGFMT, t, i->n, "is eating");
 	}
 	else if (d == SLEEP)
-		printf(LOGFMT, t, p->no, "is sleeping");
+		printf(LOGFMT, t, i->n, "is sleeping");
 	else if (d == DIE)
-		printf(LOGFMT, t, p->no, "died");
+		printf(LOGFMT, t, i->n, "died");
 	else if (d == FORK)
-		printf(LOGFMT, t, p->no, "has taken a fork");
+		printf(LOGFMT, t, i->n, "has taken a fork");
 	return ;
-}
-
-int	rubfork(t_philo *p)
-{
-	pthread_mutex_lock(&(p->lf.m));
-	if (p->lf.s == EXIST)
-	{
-		p->lf.s = NEXIST;
-		pthread_mutex_unlock(&(p->lf.m));
-		pthread_mutex_lock(&(p->next->lf.m));
-		if (p->next->lf.s == EXIST)
-		{
-			p->next->lf.s = NEXIST;
-			pthread_mutex_unlock(&(p->next->lf.m));
-			return (EXIST);
-		}
-		else
-		{
-			pthread_mutex_unlock(&(p->next->lf.m));
-			pthread_mutex_lock(&(p->lf.m));
-			p->lf.s = EXIST;
-			pthread_mutex_unlock(&(p->lf.m));
-		}
-	}
-	else
-		pthread_mutex_unlock(&(p->lf.m));
-	return (NEXIST);
 }
 
 void	get_schedule(t_info *i, t_schedule	*s)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryoakira <ryoakira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 16:58:02 by blyu              #+#    #+#             */
-/*   Updated: 2022/07/15 15:55:37 by ryoakira         ###   ########.fr       */
+/*   Updated: 2022/07/17 14:07:37 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	main(int argc, char *argv[])
 	p.no = i.n;
 	p.lf.s = EXIST;
 	pthread_mutex_init(&(p.lf.m), NULL);
-	if (set_args(&i, argc, argv))
-		return (0);
+/* 	if (set_args(&i, argc, argv))
+		return (0); */
 	if (pthread_create(&t, NULL, philo, &p))
 		i.control = ENDEXE;
 	else

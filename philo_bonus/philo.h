@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:22:15 by blyu              #+#    #+#             */
-/*   Updated: 2022/07/16 16:38:54 by blyu             ###   ########.fr       */
+/*   Updated: 2022/07/18 21:07:44 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <stdio.h>
+# include <semaphore.h>
+# include <signal.h>
 
-# define TWEAK 0
-//flag about control thread
-# define PREEXE 0
-# define EXEING 1
-# define ENDEXE 2
-//flag about is fork exist
-# define NEXIST 0
-# define EXIST 1
-//flag about is philo alive
-# define ALIVE 0
-# define DEAD 1
+# define QUOTA "QUOTA_sem"
+# define FORK "FORK_sem"
+
+# define NOTYET 0
+# define FINISH 1
+
+# define NORMAL 0
+# define ERROR -1
+
 //flag about what philo doing
 # define THINK0 0
 # define THINK 1
@@ -50,24 +50,34 @@ typedef struct s_info
 	unsigned int		e;
 	unsigned int		s;
 	unsigned int		me;
-	int					control;
 }	t_info;
 
-typedef struct s_fork
+typedef struct s_quota
 {
-	pthread_mutex_t	m;
-	int				s;
-}	t_fork;
+	sem_t			*s;
+	int				*f;
+	unsigned int	pn;
+}	t_quota;
 
-typedef struct s_philo
+typedef struct s_hand
 {
-	unsigned int	no;
-	struct s_fork	lf;
-	unsigned int	eat;
-	int				status;
-	struct s_philo	*next;
-	struct s_info	*info;
-}	t_philo;
+	int		*req;
+	int		*res;
+	sem_t	*f;
+}	t_hand;
+
+typedef struct s_acsess
+{
+	int		*req;
+	int		*res;
+}	t_acsess;
+
+typedef struct s_sems
+{
+	sem_t	*f;
+	sem_t	*q;
+}	t_sems;
+
 
 typedef struct s_schedule
 {
@@ -77,20 +87,21 @@ typedef struct s_schedule
 	unsigned long int	dt;
 }	t_schedule;
 //main.c
-void				mkphilo_and_exe(t_philo *right);
-void				exe(t_philo *p);
-void				end_exe(t_philo *p);
-void				died_philo(t_philo *p);
-//philo.c
-void				*philo(void *vp);
-int					thinking(t_philo *p, t_schedule	*s);
-int					eating(t_philo *p, t_schedule	*s);
-int					sleeping(t_philo *p, t_schedule	*s);
-unsigned long int	now(void);
+int					set_args(t_info *i, int argc, char *argv[]);
+void				*main_quota(void *vp);
+void				mkphilo_and_exe(t_info *i, int *quota);
+void				exe(t_info *i, int *quota);
+//philo_main.c
+void				*philo_hand(void *vp);
+void				philo_main(t_info *i, t_acsess *acs, t_sems *se);
+void				thinking(t_info *i, t_schedule	*sc, t_acsess *acs, t_sems *se);
+void				eating(t_info *i, t_schedule	*sc, unsigned int *eat, t_sems *se);
+void				sleeping(t_info *i, t_schedule	*sc);
 //philo_util.c
-int					rubfork(t_philo *p);
+void				philolog(t_info *i, int d);
 void				get_schedule(t_info *i, t_schedule	*s);
-void				philolog(t_philo *p, int d);
+unsigned long int	now(void);
+
 //tool.c
 void				*ft_memcpy(void *dst, const void *src, size_t n);
 int					set_args(t_info *i, int argc, char *argv[]);
@@ -98,36 +109,3 @@ int					ft_memcmp(const void *s1, const void *s2, size_t n);
 int					set_uint(char	*s, unsigned int *u);
 #endif
 
-/* 
-typedef struct s_info
-{
-	unsigned int		n;		//number_of_philosophers
-	unsigned int		d;		//time_to_die
-	unsigned int		e;		//time_to_eat
-	unsigned int		s;		//time_to_sleep
-	unsigned int		me;		//number of times each philosopher must eat
-	int					control;//control thread flag
-}	t_info;
-
-typedef struct s_fork
-{
-	pthread_mutex_t	m;	//fork's mutex
-	int				s;	//status
-}	t_fork;
-
-typedef struct s_philo
-{
-	unsigned int	no;		//philo nomber
-	struct s_fork	lf;		//philo's fork at left
-	unsigned int	eat;	//times eated
-	int				status;	//is philo alive
-	struct s_philo	*next;	//philo next to
-	struct s_info	*info;	//prerequisite information
-}	t_philo;
-
-typedef struct s_schedule
-{
-	unsigned long int	et;		//time eated
-	unsigned long int	dt;		//time to die
-}	t_schedule;
- */
