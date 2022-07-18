@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:22:03 by blyu              #+#    #+#             */
-/*   Updated: 2022/07/18 20:51:12 by blyu             ###   ########.fr       */
+/*   Updated: 2022/07/18 22:41:57 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	get_schedule(t_info *i, t_schedule	*s)
 	return ;
 }
 
-unsigned long int	now(void)
+unsigned long	now(void)
 {
 	struct timezone	buff;
 	struct timeval	now;

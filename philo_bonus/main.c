@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/18 22:51:38 by blyu              #+#    #+#             */
+/*   Updated: 2022/07/18 22:51:39 by blyu             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include"philo.h"
 
 int	main(int argc, char *argv[])
@@ -10,17 +22,19 @@ int	main(int argc, char *argv[])
 
 	if (set_args(&i, argc, argv))
 		return (0);
+	sem_unlink(FORKSEM);
+	sem_unlink(QUOTASEM);
 	q.pn = i.n;
-	q.s = sem_open(QUOTAsem, O_CREAT, S_IRWXU | S_IRWXG, 0);
+	q.s = sem_open(QUOTASEM, O_CREAT, S_IRWXU | S_IRWXG, 0);
 	if (q.s == SEM_FAILED)
-		return(1);
-	s = sem_open(FORKsem, O_CREAT, S_IRWXU | S_IRWXG, (int)i.n / 2);
+		return (1);
+	s = sem_open(FORKSEM, O_CREAT, S_IRWXU | S_IRWXG, (int)i.n / 2);
 	if (s == SEM_FAILED)
-		return(1);
+		return (1);
 	quota = NOTYET;
 	q.f = &quota;
 	if (pthread_create(&p, NULL, main_quota, &q))
-		return(1);
+		return (1);
 	mkphilo_and_exe(&i, &quota);
 	return (0);
 }
@@ -60,7 +74,7 @@ void	*main_quota(void *vp)
 
 	q = vp;
 	x = 0;
-	while(x < q->pn)
+	while (x < q->pn)
 	{
 		sem_wait(q->s);
 		x++;
@@ -71,11 +85,11 @@ void	*main_quota(void *vp)
 
 void	mkphilo_and_exe(t_info *i, int *quota)
 {
-	unsigned int x;
-	pid_t		 p;
+	unsigned int	x;
+	pid_t			p;
 
 	x = 0;
-	while(x < i->n)
+	while (x < i->n)
 	{
 		p = fork();
 		if (p < 0)

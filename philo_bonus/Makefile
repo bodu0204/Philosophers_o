@@ -2,7 +2,7 @@ PROJECT_NAME	= Philosophers
 NAME			= philo_bonus
 ACHIEV			= philo_bonus
 SRC_d			= ./
-SRC				= main.c philo_main.c philo_util.c tool.c
+SRC				= main.c philo.c philo_main.c philo_util.c tool.c
 HEDER			= philo.h
 SRC_o			= $(SRC:%.c=%.o)
 CC				= cc

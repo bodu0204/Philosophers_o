@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:22:15 by blyu              #+#    #+#             */
-/*   Updated: 2022/07/18 21:23:53 by blyu             ###   ########.fr       */
+/*   Updated: 2022/07/18 22:49:39 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,15 @@
 # include <signal.h>
 # include <sys/wait.h>
 # include <stdlib.h>
-
-# define QUOTAsem "QUOTA_sem"
-# define FORKsem "FORK_sem"
-
+//semmame
+# define QUOTASEM "QUOTA_sem"
+# define FORKSEM "FORK_sem"
+//is it clear number_of_times_each_philosopher_must_eat
 # define NOTYET 0
 # define FINISH 1
-
+//end status
 # define NORMAL 0
 # define ERROR -1
-
 //flag about what philo doing
 # define THINK0 0
 # define THINK 1
@@ -80,7 +79,6 @@ typedef struct s_sems
 	sem_t	*q;
 }	t_sems;
 
-
 typedef struct s_schedule
 {
 	unsigned long int	et;
@@ -89,26 +87,25 @@ typedef struct s_schedule
 	unsigned long int	dt;
 }	t_schedule;
 //main.c
-int					set_args(t_info *i, int argc, char *argv[]);
-void				*main_quota(void *vp);
-void				mkphilo_and_exe(t_info *i, int *quota);
-void				exe(t_info *i, int *quota);
+int				set_args(t_info *i, int argc, char *argv[]);
+void			*main_quota(void *vp);
+void			mkphilo_and_exe(t_info *i, int *quota);
+void			exe(t_info *i, int *quota);
 //philo_main.c
-void				philo(t_info *i);
-void				*philo_hand(void *vp);
-void				philo_main(t_info *i, t_acsess *acs, t_sems *se);
-void				thinking(t_info *i, t_schedule	*sc, t_acsess *acs, t_sems *se);
-void				eating(t_info *i, t_schedule	*sc, unsigned int *eat, t_sems *se);
-void				sleeping(t_info *i, t_schedule	*sc);
+void			philo(t_info *i);
+void			*philo_hand(void *vp);
+void			philo_main(t_info *i, t_acsess *acs, t_sems *se);
+void			thinking(t_info *i, t_schedule *sc, t_acsess *acs, t_sems *se);
+void			eating(t_info *i, t_schedule *sc, unsigned int *eat, \
+	t_sems *se);
+void			sleeping(t_info *i, t_schedule *sc);
 //philo_util.c
-void				philolog(t_info *i, int d);
-void				get_schedule(t_info *i, t_schedule	*s);
-unsigned long int	now(void);
-
+void			philolog(t_info *i, int d);
+void			get_schedule(t_info *i, t_schedule	*s);
+unsigned long	now(void);
 //tool.c
-void				*ft_memcpy(void *dst, const void *src, size_t n);
-int					set_args(t_info *i, int argc, char *argv[]);
-int					ft_memcmp(const void *s1, const void *s2, size_t n);
-int					set_uint(char	*s, unsigned int *u);
+void			*ft_memcpy(void *dst, const void *src, size_t n);
+int				set_args(t_info *i, int argc, char *argv[]);
+int				ft_memcmp(const void *s1, const void *s2, size_t n);
+int				set_uint(char	*s, unsigned int *u);
 #endif
-

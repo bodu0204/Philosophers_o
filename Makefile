@@ -3,6 +3,7 @@ ACHIEV			= philo
 ACHIEVtest		= $(ACHIEV).test
 ACHIEVb			= $(ACHIEV)_bonus
 ACHIEVtest		= $(ACHIEV).test
+ACHIEVbtest		= $(ACHIEVb).test
 SRC_PASS		= philo
 SRCb_PASS		= philo_bonus
 OTHER_PASS		= other
@@ -19,7 +20,7 @@ bonus : $(ACHIEVb)
 
 $(ACHIEVb) : file
 	cd "$(SUBMIT_d)$(ACHIEVb)" && make all
-	cp -f $(SUBMIT_d)$(ACHIEVb)/$(ACHIEVb) ./
+	cp -f $(SUBMIT_d)$(ACHIEVb)/$(ACHIEVb) ./$(ACHIEVbtest)
 
 push : fclean
 	git add .
