@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:22:15 by blyu              #+#    #+#             */
-/*   Updated: 2022/07/17 14:03:23 by blyu             ###   ########.fr       */
+/*   Updated: 2022/07/23 11:19:52 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ typedef struct s_schedule
 void				mkphilo_and_exe(t_philo *right);
 void				exe(t_philo *p);
 void				end_exe(t_philo *p);
-void				died_philo(t_philo *p);
 //philo.c
 void				*philo(void *vp);
 int					thinking(t_philo *p, t_schedule	*s);

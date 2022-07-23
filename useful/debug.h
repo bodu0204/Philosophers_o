@@ -5,16 +5,36 @@
 #include <sys/time.h>
 #define TEST printf("[(%s/%d) %s ]\n", __FILE__, __LINE__, __func__); fflush(stdin);
 #define TEST_ printf("---------------------------------------------[(%s/%d) %s ]\n", __FILE__, __LINE__, __func__); fflush(stdin);
-#define TESTn(i) printf("[(%s/%d) %s ]%s:%d\n", __FILE__, __LINE__, __func__, #i, (int)(i)); fflush(stdin);
-#define TESTlu(i) printf("[(%s/%d) %s ]%s:%lu\n", __FILE__, __LINE__, __func__, #i, (unsigned long)(i)); fflush(stdin);
+#define TESTn(i) printf("[(%s/%d) %s ]%s:%ld\n", __FILE__, __LINE__, __func__, #i, (long)(i)); fflush(stdin);
+#define TESTu(i) printf("[(%s/%d) %s ]%s:%lu\n", __FILE__, __LINE__, __func__, #i, (unsigned long)(i)); fflush(stdin);
+#define TESTx(i) printf("[(%s/%d) %s ]%s:%lx\n", __FILE__, __LINE__, __func__, #i, (unsigned long)(i)); fflush(stdin);
 #define TESTd(i) printf("[(%s/%d) %s ]%s:%lf\n", __FILE__, __LINE__, __func__, #i, (double)(i)); fflush(stdin);
 #define TESTp(i) printf("[(%s/%d) %s ]%s:%p\n", __FILE__, __LINE__, __func__, #i, (i)); fflush(stdin);
+#define TIME printf("[(%s/%d) %s ]%lf[s]\n", __FILE__, __LINE__, __func__, time_diff()); fflush(stdin);
 #define STOP {char c; read(STDIN_FILENO, &c, sizeof(char));}
-//#ifndef _H /* ヘッダーファイル名 */
-//#include ""/* ヘッダーファイル名 */
-//#endif
 
-/* テストに使うしたい関数 */
+double	time_diff(void);
+
+#ifndef double_time_diff_void
+	#define double_time_diff_void
+	double	time_diff(void)
+	{
+		static struct timespec	p = {0};
+		struct timespec			n;
+		unsigned int			sec;
+		int						nsec;
+		if (!p.tv_sec)
+		{
+			clock_gettime(CLOCK_REALTIME, &p);
+			return (0);
+		}
+		clock_gettime(CLOCK_REALTIME, &n);
+		sec = n.tv_sec - p.tv_sec;
+		nsec = n.tv_nsec - p.tv_nsec;
+		p = n;
+		return ((double)sec + (double)nsec / (1000 * 1000 * 1000));
+	}
+#endif
 
 
 #endif
@@ -55,11 +75,14 @@
 
 /*ショートカット
 
+
 #include "debug.h"
 
-TESTn("s->len", s->len)
-TESTn("s->grd", s->grd)
-TESTn("s->udr", s->udr)
+#ifndef _H 
+#include ""
+#endif
+
+
 
 
 

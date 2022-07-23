@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 22:51:43 by blyu              #+#    #+#             */
-/*   Updated: 2022/07/18 22:51:44 by blyu             ###   ########.fr       */
+/*   Updated: 2022/07/23 13:18:47 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	eating(t_info *i, t_schedule *sc, unsigned int *eat, t_sems *se)
 	unsigned long	n;
 
 	(*eat)++;
-	if (i->e == *eat)
+	if (i->me == *eat)
 		sem_post(se->q);
 	n = now();
 	while (sc->dt > n && sc->st > n)

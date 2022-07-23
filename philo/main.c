@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 16:58:02 by blyu              #+#    #+#             */
-/*   Updated: 2022/07/18 22:52:46 by blyu             ###   ########.fr       */
+/*   Updated: 2022/07/23 12:35:14 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int argc, char *argv[])
 
 	memset(&p, 0, sizeof(p));
 	if (set_args(&i, argc, argv))
-		return (1);
+		return (0);
 	i.control = PREEXE;
 	p.info = &i;
 	p.no = i.n;
@@ -51,13 +51,13 @@ int	set_args(t_info *i, int argc, char *argv[])
 	if (argc > 5)
 		err += set_uint(argv[5], &(i->me));
 	else
-		i->me = __UINT32_MAX__;
+		i->me = 0;
 	if (err || i->n >= 2048)
 	{
 		printf("arg error\n");
 		return (1);
 	}
-	if (!(i->n))
+	if (!(i->n) || (argc > 5 && !i->me))
 		return (1);
 	return (0);
 }
@@ -93,47 +93,26 @@ void	mkphilo_and_exe(t_philo *right)
 void	exe(t_philo *p)
 {
 	unsigned int	d;
+	unsigned int	e;
 
 	d = 0;
-	while (d < p->info->n)
+	e = 0;
+	while (d < p->info->n && p->info->control != ENDEXE)
 	{
 		if (p->no == 1)
+		{
 			d = 0;
+			e = 0;
+		}
 		if (p->status == DEAD)
-		{
 			d++;
-			died_philo(p);
-		}
+		if (p->eat >= p->info->me)
+			e++;
+		if ((p->info->me && e >= p->info->n) \
+		|| (!p->info->me && p->status == DEAD))
+			p->info->control = ENDEXE;
 		p = p->next;
 	}
-	usleep(256);
-	return ;
-}
-
-void	died_philo(t_philo *p)
-{
-	unsigned int	n;
-
-	n = p->no;
-	if (p->eat < p->info->me && p->info->control != ENDEXE)
-	{
-		p->info->control = ENDEXE;
-		usleep((p->info->d) * 1024);
-		printf("philo%u just had eat %u times\n", p->no, p->eat);
-	}
-	else
-	{
-		p = p->next;
-		while (p->no != n && p->info->control != ENDEXE)
-		{
-			if (p->eat < p->info->me)
-			{
-				p->info->control = ENDEXE;
-				usleep((p->info->d) * 1024);
-				printf("philo%u just had eat %u times\n", p->no, p->eat);
-			}
-			p = p->next;
-		}
-	}
+	usleep(p->info->d * MS_US * 2);
 	return ;
 }

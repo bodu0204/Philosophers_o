@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 22:51:38 by blyu              #+#    #+#             */
-/*   Updated: 2022/07/18 22:51:39 by blyu             ###   ########.fr       */
+/*   Updated: 2022/07/23 13:19:23 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	quota = NOTYET;
 	q.f = &quota;
+	q.me = i.me;
 	if (pthread_create(&p, NULL, main_quota, &q))
 		return (1);
 	mkphilo_and_exe(&i, &quota);
@@ -56,13 +57,13 @@ int	set_args(t_info *i, int argc, char *argv[])
 	if (argc > 5)
 		err += set_uint(argv[5], &(i->me));
 	else
-		i->me = __UINT32_MAX__;
+		i->me = 0;
 	if (err || i->n >= 2048)
 	{
 		printf("arg error\n");
 		return (1);
 	}
-	if (!(i->n))
+	if (!(i->n) || (argc > 5 && !i->me))
 		return (1);
 	return (0);
 }
@@ -80,6 +81,8 @@ void	*main_quota(void *vp)
 		x++;
 	}
 	*(q->f) = FINISH;
+	if (q->me)
+		kill (0, SIGINT);
 	return (NULL);
 }
 
@@ -91,6 +94,7 @@ void	mkphilo_and_exe(t_info *i, int *quota)
 	x = 0;
 	while (x < i->n)
 	{
+		x++;
 		p = fork();
 		if (p < 0)
 		{
@@ -98,7 +102,6 @@ void	mkphilo_and_exe(t_info *i, int *quota)
 			kill (0, SIGINT);
 			exit(1);
 		}
-		x++;
 		if (p == 0)
 		{
 			i->n = x;
@@ -119,7 +122,7 @@ void	exe(t_info *i, int *quota)
 	while (d < i->n)
 	{
 		waitpid(-1, &status, 0);
-		if (status == ERROR || *quota == NOTYET)
+		if (status == ERROR || *quota == FINISH)
 			kill (0, SIGINT);
 		d++;
 	}

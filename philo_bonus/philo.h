@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:22:15 by blyu              #+#    #+#             */
-/*   Updated: 2022/07/18 22:49:39 by blyu             ###   ########.fr       */
+/*   Updated: 2022/07/23 12:47:11 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_quota
 	sem_t			*s;
 	int				*f;
 	unsigned int	pn;
+	unsigned int	me;
 }	t_quota;
 
 typedef struct s_hand
