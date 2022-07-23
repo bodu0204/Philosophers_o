@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:21:24 by ryoakira          #+#    #+#             */
-/*   Updated: 2022/07/16 16:41:38 by blyu             ###   ########.fr       */
+/*   Updated: 2022/07/23 14:23:58 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ int	thinking(t_philo *p, t_schedule	*s)
 	}
 	if (f == NEXIST)
 	{
-		p->status = DEAD;
 		philolog(p, DIE);
+		p->status = DEAD;
 		return (DEAD);
 	}
 	return (ALIVE);
@@ -78,8 +78,8 @@ int	eating(t_philo *p, t_schedule	*s)
 		n = now();
 	if (s->dt < n)
 	{
-		p->status = DEAD;
 		philolog(p, DIE);
+		p->status = DEAD;
 	}
 	pthread_mutex_lock(&(p->lf.m));
 	p->lf.s = EXIST;
@@ -104,8 +104,8 @@ int	sleeping(t_philo *p, t_schedule	*s)
 		n = now();
 	if (s->dt < n)
 	{
-		p->status = DEAD;
 		philolog(p, DIE);
+		p->status = DEAD;
 		return (DEAD);
 	}
 	return (ALIVE);
