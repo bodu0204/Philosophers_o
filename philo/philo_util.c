@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:22:03 by blyu              #+#    #+#             */
-/*   Updated: 2022/07/23 12:34:55 by blyu             ###   ########.fr       */
+/*   Updated: 2022/10/07 08:41:23 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,24 @@
 
 void	philolog(t_philo *p, int d)
 {
-	unsigned int	t;
-
 	if (p->info->control != EXEING)
 		return ;
-	t = now();
 	if (d == THINK0)
-		printf(LOGFMT, t, p->no, "is thinking[start]");
+		printf(LOGFMT, now(), p->no, "is thinking[start]");
 	else if (d == THINK)
-		printf(LOGFMT, t, p->no, "is thinking");
+		printf(LOGFMT, now(), p->no, "is thinking");
 	else if (d == EAT)
 	{
 		philolog(p, FORK);
 		philolog(p, FORK);
-		printf(LOGFMT, t, p->no, "is eating");
+		printf(LOGFMT, now(), p->no, "is eating");
 	}
 	else if (d == SLEEP)
-		printf(LOGFMT, t, p->no, "is sleeping");
+		printf(LOGFMT, now(), p->no, "is sleeping");
 	else if (d == DIE)
-		printf(LOGFMT, t, p->no, "died");
+		printf(LOGFMT, now(), p->no, "died");
 	else if (d == FORK)
-		printf(LOGFMT, t, p->no, "has taken a fork");
+		printf(LOGFMT, now(), p->no, "has taken a fork");
 	return ;
 }
 
