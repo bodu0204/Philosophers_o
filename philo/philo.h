@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:22:15 by blyu              #+#    #+#             */
-/*   Updated: 2022/10/07 08:58:56 by blyu             ###   ########.fr       */
+/*   Updated: 2022/10/07 08:59:40 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int					ft_memcmp(const void *s1, const void *s2, size_t n);
 int					set_uint(char	*s, unsigned int *u);
 
 
-inline unsigned long int	now(void)
+inline static unsigned long int	now(void)
 {
 	struct timezone	buff;
 	struct timeval	now;
