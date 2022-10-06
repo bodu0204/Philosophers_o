@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:22:03 by blyu              #+#    #+#             */
-/*   Updated: 2022/10/07 08:49:53 by blyu             ###   ########.fr       */
+/*   Updated: 2022/10/07 08:59:05 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,4 @@ void	get_schedule(t_info *i, t_schedule	*s)
 	s->st = s->et + i->e;
 	s->tt = s->st + i->s;
 	return ;
-}
-
-inline unsigned long int	now(void)
-{
-	struct timezone	buff;
-	struct timeval	now;
-
-	gettimeofday(&now, &buff);
-	return ((now.tv_usec / MS_US) + (now.tv_sec * S_MS));
 }

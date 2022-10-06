@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:22:15 by blyu              #+#    #+#             */
-/*   Updated: 2022/10/07 08:50:06 by blyu             ###   ########.fr       */
+/*   Updated: 2022/10/07 08:58:56 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void				*philo(void *vp);
 int					thinking(t_philo *p, t_schedule	*s);
 int					eating(t_philo *p, t_schedule	*s);
 int					sleeping(t_philo *p, t_schedule	*s);
-inline unsigned long int	now(void);
 //philo_util.c
 int					rubfork(t_philo *p);
 void				get_schedule(t_info *i, t_schedule	*s);
@@ -94,6 +93,17 @@ void				*ft_memcpy(void *dst, const void *src, size_t n);
 int					set_args(t_info *i, int argc, char *argv[]);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 int					set_uint(char	*s, unsigned int *u);
+
+
+inline unsigned long int	now(void)
+{
+	struct timezone	buff;
+	struct timeval	now;
+
+	gettimeofday(&now, &buff);
+	return ((now.tv_usec / MS_US) + (now.tv_sec * S_MS));
+}
+
 #endif
 
 /* 

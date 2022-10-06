@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:21:24 by ryoakira          #+#    #+#             */
-/*   Updated: 2022/10/07 08:58:13 by blyu             ###   ########.fr       */
+/*   Updated: 2022/10/07 08:58:41 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,14 +110,3 @@ int	sleeping(t_philo *p, t_schedule	*s)
 	}
 	return (ALIVE);
 }
-
-
-inline unsigned long int	now(void)
-{
-	struct timezone	buff;
-	struct timeval	now;
-
-	gettimeofday(&now, &buff);
-	return ((now.tv_usec / MS_US) + (now.tv_sec * S_MS));
-}
-
