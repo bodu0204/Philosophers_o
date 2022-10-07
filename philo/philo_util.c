@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:22:03 by blyu              #+#    #+#             */
-/*   Updated: 2022/10/07 08:59:05 by blyu             ###   ########.fr       */
+/*   Updated: 2022/10/07 09:02:07 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	philolog(t_philo *p, int d)
 		printf(LOGFMT, (unsigned)now(), p->no, "died");
 	else if (d == FORK)
 		printf(LOGFMT, (unsigned)now(), p->no, "has taken a fork");
+	fflush(stdout);
 	return ;
 }
 
